@@ -80,17 +80,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     callback.invoke(keyguardManager.isKeyguardSecure());
   }
 
-  @ReactMethod
-  public void getAdvertisingId(Callback callback) {
-    try {
-      AdvertisingIdClient.Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(this.reactContext);
-      String adId = adInfo != null ? adInfo.getId() : "";
-      callback.invoke(adId);
-    } catch (Exception e) {
-      callback.invoke("");
-    }
-  }
-
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
@@ -121,6 +110,15 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       e.printStackTrace();
     }
 
+    String advertisingId = "";
+
+    try {
+      AdvertisingIdClient.Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(this.reactContext);
+      advertisingId = adInfo != null ? adInfo.getId() : "";
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     constants.put("instanceId", InstanceID.getInstance(this.reactContext).getId());
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
@@ -137,6 +135,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+    constants.put("advertisingId", advertisingId);
     return constants;
   }
 }

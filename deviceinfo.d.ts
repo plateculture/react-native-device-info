@@ -22,7 +22,7 @@ declare class DeviceInfo {
   public static isEmulator(): boolean;
   public static isTablet(): boolean;
   public static isPinOrFingerprintSet(cb: (isSet: boolean) => void): void;
-  public static getAdvertisingId(cb: (adId: string) => void): void;
+  public static getAdvertisingId(): string;
 }
 
 export default DeviceInfo;

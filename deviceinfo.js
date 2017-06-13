@@ -66,6 +66,6 @@ module.exports = {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
   getAdvertisingId: function() {
-    return RNDeviceInfo.getAdvertisingId;
+    return RNDeviceInfo.advertisingId;
   },
 };
