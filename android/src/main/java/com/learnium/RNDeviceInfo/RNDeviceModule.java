@@ -10,6 +10,7 @@ import android.os.Build;
 import android.provider.Settings.Secure;
 
 import com.google.android.gms.iid.InstanceID;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -77,6 +78,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void isPinOrFingerprintSet(Callback callback) {
     KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getSystemService(Context.KEYGUARD_SERVICE); //api 16+
     callback.invoke(keyguardManager.isKeyguardSecure());
+  }
+
+  @ReactMethod
+  public void getAdvertisingId(Callback callback) {
+    try {
+      AdvertisingIdClient.Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(this.reactContext);
+      String adId = adInfo != null ? adInfo.getId() : "";
+      callback.invoke(adId);
+    } catch (Exception e) {
+      callback.invoke("");
+    }
   }
 
   @Override

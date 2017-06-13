@@ -65,4 +65,7 @@ module.exports = {
   isPinOrFingerprintSet: function () {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
+  getAdvertisingId: function() {
+    return RNDeviceInfo.getAdvertisingId;
+  },
 };
